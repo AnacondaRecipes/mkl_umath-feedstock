@@ -1,0 +1,49 @@
+{% set version = "0.1.1" %}
+
+package:
+  name: mkl_umath
+  version: {{ version }}
+
+source:
+    git_url: https://github.com/IntelPython/mkl_umath
+    # url: https://github.com/IntelPython/mkl_random/archive/v{{ version }}.tar.gz
+    # sha256: ...
+    # patches:
+    #   - patches/0001-suppress-extra-compiler-args.patch
+
+build:
+  number: 0
+  skip: True  # [ppc64le or py<37]
+
+requirements:
+  build:
+    - git
+    - {{ compiler('c') }}       # [win]
+    - {{ compiler('dpcpp') }}   
+  host:
+    - python
+    - setuptools
+    - mkl-devel  {{ mkl }}
+    - dpcpp_cpp_rt
+    - cython
+    - numpy-base  {{ numpy }}
+  run:
+    - python
+    - dpcpp_cpp_rt
+    - {{ pin_compatible('numpy') }}
+
+test:
+  imports:
+    - mkl_umath
+    - mkl_umath._ufuncs
+    - mkl_umath._patch
+
+about:
+  home: https://github.com/IntelPython/mkl_umath
+  license: BSD-3-Clause
+  license_file: LICENSE.txt
+  summary: NumPy-based implementation of universal math functions using Intel(R) Math Kernel Library (Intel(R) MKL) and Intel(R) C Compiler.
+  description: |
+    Universal functions for real and complex floating point arrays powered by Intel(R) Math
+    Kernel Library Vector (Intel(R) MKL) and Intel(R) Short Vector Math Library
+      (Intel(R) SVML)
