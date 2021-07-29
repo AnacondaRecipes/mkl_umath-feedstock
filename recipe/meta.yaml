@@ -5,31 +5,28 @@ package:
   version: {{ version }}
 
 source:
-    git_url: https://github.com/IntelPython/mkl_umath
+    git_url: https://github.com/IntelPython/mkl_umath.git
     # url: https://github.com/IntelPython/mkl_random/archive/v{{ version }}.tar.gz
     # sha256: ...
-    # patches:
-    #   - patches/0001-suppress-extra-compiler-args.patch
 
 build:
   number: 0
-  skip: True  # [ppc64le or py<37]
+  skip: True  # [not (linux64 or win64) or py<37]
 
 requirements:
   build:
     - git
-    - {{ compiler('c') }}       # [win]
-    - {{ compiler('dpcpp') }}   
+    # we need the sysroot and flags.
+    - {{ compiler('c') }}
+    - {{ compiler('dpcpp') }}   # [not osx]
   host:
     - python
-    - setuptools
+    - pip
     - mkl-devel  {{ mkl }}
-    - dpcpp_cpp_rt
     - cython
     - numpy-base  {{ numpy }}
   run:
     - python
-    - dpcpp_cpp_rt
     - {{ pin_compatible('numpy') }}
 
 test:
