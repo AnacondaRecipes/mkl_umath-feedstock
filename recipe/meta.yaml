@@ -10,20 +10,22 @@ source:
 
 build:
   number: 0
-  skip: True  # [not (linux64 or win64) or py<37]
+  skip: True  # [py<37]
+  # todo: update once it is able to be built on other platforms.
+  skip: True  # [not linux64]
   ignore_run_exports:
     - dpcpp-cpp-rt
 
 requirements:
   build:
     - git
-    - {{ compiler('dpcpp') }}   # [not osx]
+    - {{ compiler('dpcpp') }}
   host:
     - python
     - pip
-    - mkl-devel  {{ mkl }}
     - cython
-    - numpy-base  {{ numpy }}
+    - mkl-devel  {{ mkl }}
+    - numpy
   run:
     - python
     - {{ pin_compatible('numpy') }}
