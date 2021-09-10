@@ -5,19 +5,18 @@ package:
   version: {{ version }}
 
 source:
-    git_url: https://github.com/IntelPython/mkl_umath.git
-    # url: https://github.com/IntelPython/mkl_random/archive/v{{ version }}.tar.gz
-    # sha256: ...
+    url: https://github.com/IntelPython/mkl_umath/archive/v{{ version }}.tar.gz
+    sha256: 29a03204ed9dd1e53987c8e8f13e6cc2be2316328f0fe931b926542f7fa5b806
 
 build:
   number: 0
   skip: True  # [not (linux64 or win64) or py<37]
+  ignore_run_exports:
+    - dpcpp-cpp-rt
 
 requirements:
   build:
     - git
-    # we need the sysroot and flags.
-    - {{ compiler('c') }}
     - {{ compiler('dpcpp') }}   # [not osx]
   host:
     - python

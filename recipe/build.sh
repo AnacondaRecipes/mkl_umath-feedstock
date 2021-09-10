@@ -1,8 +1,11 @@
 export MKLROOT=${PREFIX}
-export LDFLAGS="-L${PREFIX}/lib ${LDFLAGS}"
-export CFLAGS="-I${PREFIX}/include -I${BUILD_PREFIX}/include --sysroot ${CONDA_BUILD_SYSROOT} ${CFLAGS}"
 
-export CC=icx
-export CXX=icpx
+# TODO: fix in the dpcpp_* compiler packages.
+export _CONDA_PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_x86_64_conda_linux_gnu
+
+# these break gcc
+export CFLAGS="`echo $CFLAGS | sed \"s/--target=${HOST}//\"`"
+export CXXFLAGS="`echo $CXXFLAGS | sed \"s/--target=${HOST}//\"`"
+export LDFLAGS="`echo $LDFLAGS | sed \"s/--target=${HOST}//\"`"
 
 ${PYTHON} -m pip install . --no-deps -vv
