@@ -1,6 +1,6 @@
 export MKLROOT=${PREFIX}
-export LDFLAGS="-L${BUILD_PREFIX}/lib ${LDFLAGS}"
-export CFLAGS="-I${BUILD_PREFIX}/include ${CFLAGS}"
+export LDFLAGS="-L${BUILD_PREFIX}/lib -L${PREFIX}/lib ${LDFLAGS}"
+export CFLAGS="-I${BUILD_PREFIX}/include -I${PREFIX}/include ${CFLAGS}"
 
 export CC=icx
 export CXX=icpx
