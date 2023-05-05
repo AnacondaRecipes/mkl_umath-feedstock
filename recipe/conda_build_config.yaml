@@ -1,2 +1,4 @@
 dpcpp_compiler_version:
-  - 2021.3
+  - 2023.1
+mkl:
+  - 2023

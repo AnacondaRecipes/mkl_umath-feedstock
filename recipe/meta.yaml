@@ -9,13 +9,12 @@ source:
   sha256: 29a03204ed9dd1e53987c8e8f13e6cc2be2316328f0fe931b926542f7fa5b806
 
 build:
-  number: 0
+  number: 1
   skip: True  # [not (linux and x86_64)]
-  skip: True  # [py==310]
+  skip: True  # [py>=310]
 
 requirements:
   build:
-    - git
     - {{ compiler('c') }}
     - {{ compiler('dpcpp') }}
   host:
